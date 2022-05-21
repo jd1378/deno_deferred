@@ -1,8 +1,8 @@
 // deno-lint-ignore-file no-explicit-any
 export default class Deferred<T> implements Promise<T> {
-  private _resolveSelf!: (value: T | PromiseLike<T>) => void;
+  private _resolveSelf?: (value: T | PromiseLike<T>) => void;
 
-  private _rejectSelf!: (value: T | PromiseLike<T>) => void;
+  private _rejectSelf?: (reason?: any) => void;
 
   private fate: "resolved" | "unresolved";
 
@@ -50,7 +50,7 @@ export default class Deferred<T> implements Promise<T> {
     if (this.fate !== "resolved") {
       this.fate = "resolved";
       this.state = "fulfilled";
-      this._resolveSelf(val);
+      this._resolveSelf!(val);
     }
   }
 
@@ -58,7 +58,7 @@ export default class Deferred<T> implements Promise<T> {
     if (this.fate !== "resolved") {
       this.fate = "resolved";
       this.state = "rejected";
-      this._rejectSelf(reason);
+      this._rejectSelf!(reason);
     }
   }
 

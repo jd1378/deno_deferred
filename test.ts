@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.118.0/testing/asserts.ts";
 import { delay } from "https://deno.land/std@0.118.0/async/delay.ts";
-import { Deferred } from "./deferred.ts";
+import { Deferred } from "./mod.ts";
 
 Deno.test("has resolve()", () => {
   const deferred = new Deferred<void>();
