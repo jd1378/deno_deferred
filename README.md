@@ -5,7 +5,7 @@ A simple deferred for deno
 ## usage
 
 ```js
-import Deferred from 'https://deno.land/x/deferred@v1.0.0/mod.ts';
+import Deferred from 'https://deno.land/x/deferred@v1.0.1/mod.ts';
 
 let defer = new Deferred<string>();
 
