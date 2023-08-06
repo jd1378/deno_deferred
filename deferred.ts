@@ -78,7 +78,9 @@ export default class Deferred<T> implements Promise<T> {
     return this.state === "rejected";
   }
 
-  [Symbol.toStringTag]: "Promise";
+  public get [Symbol.toStringTag]() {
+    return "Promise";
+  }
 }
 
 export { Deferred };
