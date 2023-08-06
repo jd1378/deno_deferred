@@ -104,6 +104,29 @@ Deno.test("cannot reject after resolve", async () => {
   assertEquals(deferred.isRejected(), false);
 });
 
+Deno.test("reject does not call .then()", async () => {
+  // SOMEHOW, THIS was working as expected in deno, which is weird as I was calling .then on promise in deffered
+  // for more info, check the edited file in the same commit
+  // this test was passing either way, but it shouldn't have ...
+  const deferred = new Deferred<void>();
+
+  let thenCalled = false;
+  let catchCalled = false;
+  deferred.then(() => {
+    thenCalled = true;
+  }).catch(() => {
+    catchCalled = true;
+  });
+  deferred.reject();
+
+  await delay(10);
+  assertEquals(thenCalled, false);
+  assertEquals(catchCalled, true);
+  assertEquals(deferred.isFulfilled(), false);
+  assertEquals(deferred.isResolved(), true);
+  assertEquals(deferred.isRejected(), true);
+});
+
 Deno.test("finally is called after resolve and reject", async () => {
   let defer = new Deferred<void>();
 

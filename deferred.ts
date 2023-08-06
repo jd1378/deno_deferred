@@ -43,7 +43,7 @@ export default class Deferred<T> implements Promise<T> {
       | undefined
       | null,
   ): Promise<T | TResult> {
-    return this.promise.then(onrejected);
+    return this.promise.catch(onrejected);
   }
 
   public resolve(val: T): void {
